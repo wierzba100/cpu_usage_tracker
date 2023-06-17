@@ -1,0 +1,8 @@
+//
+// Created by filip on 17.06.23.
+//
+
+#ifndef GPU_USAGE_TRACKER_ANALYZER_H
+#define GPU_USAGE_TRACKER_ANALYZER_H
+
+#endif //GPU_USAGE_TRACKER_ANALYZER_H
