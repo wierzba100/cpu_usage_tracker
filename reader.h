@@ -5,8 +5,6 @@
 #ifndef GPU_USAGE_TRACKER_READER_H
 #define GPU_USAGE_TRACKER_READER_H
 
-#define MAX_NR_OF_PROCESSORS 12
-
 typedef struct {
     unsigned long user;
     unsigned long nice;
@@ -21,6 +19,6 @@ typedef struct {
 } CPU_Data;
 
 
-void readCPUdata(CPU_Data*);
+void *readCPUdata(void*);
 
 #endif //GPU_USAGE_TRACKER_READER_H
