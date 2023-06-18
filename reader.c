@@ -33,6 +33,7 @@ void *reader(void *CPUs_DataIn)
     while(1)
     {
         pthread_mutex_lock(&lock);
+        thread_is_working(0);
         readCPUdata(CPUs_Stats, number_of_processors);
         for(int i=0;i<number_of_processors;i++) {
             CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
@@ -40,7 +41,7 @@ void *reader(void *CPUs_DataIn)
         }
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&readerCond);
-        usleep(15000);
+        usleep(20000);
     }
 }
 

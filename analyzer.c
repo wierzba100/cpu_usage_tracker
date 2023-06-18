@@ -32,6 +32,7 @@ void *analyzer(void *CPUs_DataIn)
     while(1)
     {
         pthread_mutex_lock(&lock);
+        thread_is_working(1);
         pthread_cond_wait(&readerCond, &lock);
         for(int i=0;i<number_of_processors;i++) {
             CPUMy_Data->usage[i] = proc_usage(CPUMy_Data->CurrentCPUs_Data[i], CPUMy_Data->PreviousCPUs_Data[i]);

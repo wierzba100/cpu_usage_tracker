@@ -10,6 +10,7 @@ void *printer(void *CPUs_DataIn)
     while(1)
     {
         pthread_mutex_lock(&lock);
+        thread_is_working(2);
         pthread_cond_wait(&analyzerCond, &lock);
         printf("Dane:\n");
         for(int i=0;i<number_of_processors;i++) {
