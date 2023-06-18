@@ -24,6 +24,5 @@ void *watchdog(void*)
         }
         pthread_mutex_unlock(&watchdog_mutex);
     }
-    pthread_mutex_unlock(&watchdog_mutex);
 
 }

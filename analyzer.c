@@ -40,6 +40,4 @@ void *analyzer(void *CPUs_DataIn)
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&analyzerCond);
     }
-    pthread_mutex_unlock(&lock);
-    pthread_cond_signal(&analyzerCond);
 }

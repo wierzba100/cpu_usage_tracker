@@ -32,6 +32,7 @@ void *reader(void *CPUs_DataIn)
     CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
     while(!done)
     {
+        usleep(20000);
         pthread_mutex_lock(&lock);
         thread_is_working(0);
         readCPUdata(CPUs_Stats, number_of_processors);
@@ -41,9 +42,6 @@ void *reader(void *CPUs_DataIn)
         }
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&readerCond);
-        usleep(20000);
     }
-    pthread_mutex_unlock(&lock);
-    pthread_cond_signal(&readerCond);
 }
 

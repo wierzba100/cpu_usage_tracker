@@ -31,13 +31,12 @@ int main()
     pthread_join(thread2, NULL);
     pthread_join(thread3, NULL);
 
-    printf("\n Exiting the program.\n");
-
     pthread_mutex_destroy(&lock);
     pthread_mutex_destroy(&watchdog_mutex);
     pthread_cond_destroy(&readerCond);
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&analyzerCond);
 
+    printf("done.\n");
     return 0;
 }
