@@ -37,6 +37,6 @@ int main()
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&analyzerCond);
 
-    printf("done.\n");
+    printf("Program closed\n");
     return 0;
 }

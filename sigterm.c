@@ -6,6 +6,7 @@
 
 void term(int signal)
 {
+    printf("Closing program...\n");
     done = 1;
 }
 

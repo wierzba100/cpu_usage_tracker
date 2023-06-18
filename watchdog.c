@@ -18,6 +18,7 @@ void *watchdog(void*)
         pthread_mutex_lock(&watchdog_mutex);
         for (int i = 0; i < NR_OF_THREADS; i++) {
             if (Threads_Table[i] == 0) {
+                printf("WATCHDOG ALERT: Zawiesił się %d watek\n", i);
                 term(0);
             }
             Threads_Table[i] = 0;
