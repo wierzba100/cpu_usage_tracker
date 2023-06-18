@@ -40,7 +40,7 @@ void *reader(void *CPUs_DataIn)
             CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
             CPUMy_Data->CurrentCPUs_Data[i] = CPUs_Stats[i];
         }
-        usleep(100000);
+        usleep(5000);
     }
 }
 
