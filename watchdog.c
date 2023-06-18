@@ -4,14 +4,14 @@
 
 #include "watchdog.h"
 
-void thread_is_working(int Thread_nr)
+void thread_is_working(int thread_nr)
 {
     pthread_mutex_lock(&watchdog_mutex);
-    Threads_Table[Thread_nr] = 1;
+    Threads_Table[thread_nr] = 1;
     pthread_mutex_unlock(&watchdog_mutex);
 }
 
-void *watchdog(void*)
+void *watchdog(__attribute__((unused)) void* paramIn)
 {
     while(!done) {
         sleep(WATCHDOG_TIMEOUT);
@@ -28,5 +28,5 @@ void *watchdog(void*)
         pthread_mutex_unlock(&watchdog_mutex);
         pthread_cond_signal(&watchdogCond);
     }
-
+    return NULL;
 }

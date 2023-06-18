@@ -23,6 +23,7 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
         }
         fclose(fp);
     }
+    return NULL;
 }
 
 
@@ -43,5 +44,6 @@ void *reader(void *CPUs_DataIn)
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&readerCond);
     }
+    return NULL;
 }
 

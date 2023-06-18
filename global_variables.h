@@ -36,7 +36,7 @@ typedef struct{
 
 extern long number_of_processors;
 
-extern void thread_is_working(int Thread_nr);
+extern void thread_is_working(int thread_nr);
 
 extern volatile sig_atomic_t done;
 extern void term(int);

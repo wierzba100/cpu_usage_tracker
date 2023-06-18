@@ -18,5 +18,5 @@ void *printer(void *CPUs_DataIn)
         pthread_mutex_unlock(&lock);
         sleep(1);
     }
-
+    return NULL;
 }

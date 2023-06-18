@@ -4,7 +4,7 @@
 
 #include "sigterm.h"
 
-void term(int signal)
+void term(__attribute__((unused)) int signum)
 {
     printf("Closing program...\n");
     done = 1;

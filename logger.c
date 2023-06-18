@@ -43,5 +43,5 @@ void *logger(void *CPUs_DataIn)
         fprintf (fp, "Logger Stop\n");
         fclose(fp);
     }
-
+    return NULL;
 }
