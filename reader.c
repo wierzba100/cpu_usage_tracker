@@ -6,6 +6,7 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
     FILE *fp;
     fp = fopen("/proc/stat", "r");
     if (fp == NULL) {
+        printf("Can't open '/proc/stat' file. ERROR");
         term(0);
     } else {
         char buffer[256];
@@ -28,7 +29,6 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
 void *reader(void *CPUs_DataIn)
 {
     CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
-    long number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
     CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
     while(!done)
     {

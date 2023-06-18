@@ -14,7 +14,7 @@
 
 #define MAX_NR_OF_PROCESSORS 12
 #define WATCHDOG_TIMEOUT 2
-#define NR_OF_THREADS 3
+#define NR_OF_THREADS 4
 
 typedef struct{
     unsigned long user;
@@ -34,6 +34,8 @@ typedef struct{
     CPU_Data PreviousCPUs_Data[MAX_NR_OF_PROCESSORS];
     double usage[MAX_NR_OF_PROCESSORS];
 }CPUs_Data;
+
+extern long number_of_processors;
 
 extern void thread_is_working(int Thread_nr);
 
