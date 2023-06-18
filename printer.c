@@ -7,7 +7,7 @@ void *printer(void *CPUs_DataIn)
 {
     CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
     long number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
-    while(1)
+    while(!done)
     {
         pthread_mutex_lock(&lock);
         thread_is_working(2);
@@ -19,5 +19,6 @@ void *printer(void *CPUs_DataIn)
         pthread_mutex_unlock(&lock);
         sleep(1);
     }
+    pthread_mutex_unlock(&lock);
 
 }

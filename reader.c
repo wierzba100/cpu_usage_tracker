@@ -6,7 +6,7 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
     FILE *fp;
     fp = fopen("/proc/stat", "r");
     if (fp == NULL) {
-        printf("nie ma pliku");
+        term(0);
     } else {
         char buffer[256];
         for(int i = 0;i<nr_of_proc;i++) {
@@ -30,7 +30,7 @@ void *reader(void *CPUs_DataIn)
     CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
     long number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
     CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
-    while(1)
+    while(!done)
     {
         pthread_mutex_lock(&lock);
         thread_is_working(0);
@@ -43,5 +43,7 @@ void *reader(void *CPUs_DataIn)
         pthread_cond_signal(&readerCond);
         usleep(20000);
     }
+    pthread_mutex_unlock(&lock);
+    pthread_cond_signal(&readerCond);
 }
 

@@ -9,6 +9,8 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <signal.h>
+#include <string.h>
 
 #define MAX_NR_OF_PROCESSORS 12
 #define WATCHDOG_TIMEOUT 2
@@ -34,5 +36,9 @@ typedef struct{
 }CPUs_Data;
 
 extern void thread_is_working(int Thread_nr);
+
+extern volatile sig_atomic_t done;
+extern void term(int);
+
 
 #endif //GPU_USAGE_TRACKER_GLOBAL_VARIABLES_H

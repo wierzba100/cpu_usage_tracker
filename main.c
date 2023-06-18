@@ -3,18 +3,23 @@
 #include "analyzer.h"
 #include "printer.h"
 #include "watchdog.h"
+#include "sigterm.h"
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t watchdog_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t readerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t analyzerCond = PTHREAD_COND_INITIALIZER;
+
 bool Threads_Table[NR_OF_THREADS];
+volatile sig_atomic_t done = 0;
 
 int main()
 {
     CPUs_Data CPUs_Data;
 
     pthread_t thread0, thread1, thread2, thread3;
+
+    SIGTERM_init();
 
     pthread_create(&thread0, NULL, reader, (void*) &CPUs_Data);
     pthread_create(&thread1, NULL, analyzer, (void*) &CPUs_Data);
@@ -26,9 +31,13 @@ int main()
     pthread_join(thread2, NULL);
     pthread_join(thread3, NULL);
 
+    printf("\n Exiting the program.\n");
 
     pthread_mutex_destroy(&lock);
+    pthread_mutex_destroy(&watchdog_mutex);
     pthread_cond_destroy(&readerCond);
     pthread_cond_destroy(&analyzerCond);
+    pthread_cond_destroy(&analyzerCond);
+
     return 0;
 }
