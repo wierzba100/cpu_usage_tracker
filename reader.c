@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 #include "reader.h"
+#include <string.h>
 
 void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
 {
@@ -29,17 +27,20 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
 
 void *reader(void *CPUs_DataIn)
 {
-    CPUs_Data* CPUMy_Data = (CPU_Data *)CPUs_DataIn;
+    CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
     long number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
     CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
     while(1)
     {
-        readCPUdata(&CPUs_Stats, number_of_processors);
+        pthread_mutex_lock(&lock);
+        readCPUdata(CPUs_Stats, number_of_processors);
         for(int i=0;i<number_of_processors;i++) {
             CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
             CPUMy_Data->CurrentCPUs_Data[i] = CPUs_Stats[i];
         }
-        sleep(1);
+        pthread_mutex_unlock(&lock);
+        pthread_cond_signal(&readerCond);
+        usleep(15000);
     }
 }
 

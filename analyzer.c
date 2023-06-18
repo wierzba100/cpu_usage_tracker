@@ -2,7 +2,6 @@
 // Created by filip on 18.06.23.
 //
 
-#include <unistd.h>
 #include "analyzer.h"
 
 double proc_usage(CPU_Data Current_Data, CPU_Data Previous_Data)
@@ -28,13 +27,16 @@ double proc_usage(CPU_Data Current_Data, CPU_Data Previous_Data)
 
 void *analyzer(void *CPUs_DataIn)
 {
-    CPUs_Data* CPUMy_Data = (CPU_Data *)CPUs_DataIn;
+    CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
     long number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
     while(1)
     {
+        pthread_mutex_lock(&lock);
+        pthread_cond_wait(&readerCond, &lock);
         for(int i=0;i<number_of_processors;i++) {
             CPUMy_Data->usage[i] = proc_usage(CPUMy_Data->CurrentCPUs_Data[i], CPUMy_Data->PreviousCPUs_Data[i]);
         }
-        sleep(1);
+        pthread_mutex_unlock(&lock);
+        pthread_cond_signal(&analyzerCond);
     }
 }

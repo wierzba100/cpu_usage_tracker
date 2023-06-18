@@ -3,4 +3,4 @@ project(gpu_usage_tracker C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(gpu_usage_tracker main.c reader.h analyzer.c analyzer.h printer.c printer.h)
+add_executable(gpu_usage_tracker main.c reader.h analyzer.c analyzer.h printer.c printer.h global_variables.h reader.c)
