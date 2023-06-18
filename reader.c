@@ -11,14 +11,13 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
         printf("nie ma pliku");
     } else {
         char buffer[256];
-        CPU_Data CPU;
         for(int i = 0;i<nr_of_proc;i++) {
             if ( (fgets(buffer, sizeof(buffer), fp) != NULL) ||  (strncmp(buffer, "cpu", 3) == 0))
             {
                 sscanf(buffer + 4, "%lu %lu %lu %lu %lu %lu %lu %lu %lu %lu",
-                       &CPU.user, &CPU.nice, &CPU.system, &CPU.idle, &CPU.iowait,
-                       &CPU.irq, &CPU.softirq, &CPU.steal, &CPU.guest, &CPU.guest_nice);
-                CPUs_Data[i] = CPU;
+                       &CPUs_Data[i].user, &CPUs_Data[i].nice,&CPUs_Data[i].system,&CPUs_Data[i].idle,
+                       &CPUs_Data[i].iowait,&CPUs_Data[i].irq, &CPUs_Data[i].softirq, &CPUs_Data[i].steal,
+                       &CPUs_Data[i].guest, &CPUs_Data[i].guest_nice);
             } else {
                 fclose(fp);
             }
@@ -40,7 +39,7 @@ void *reader(void *CPUs_DataIn)
             CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
             CPUMy_Data->CurrentCPUs_Data[i] = CPUs_Stats[i];
         }
-        usleep(5000);
+        sleep(1);
     }
 }
 

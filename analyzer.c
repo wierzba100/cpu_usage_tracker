@@ -35,5 +35,6 @@ void *analyzer(void *CPUs_DataIn)
         for(int i=0;i<number_of_processors;i++) {
             CPUMy_Data->usage[i] = proc_usage(CPUMy_Data->CurrentCPUs_Data[i], CPUMy_Data->PreviousCPUs_Data[i]);
         }
+        sleep(1);
     }
 }
