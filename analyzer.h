@@ -7,7 +7,7 @@
 
 #include "reader.h"
 
-unsigned long proc_usage(CPU_Data, CPU_Data);
+double proc_usage(CPU_Data, CPU_Data);
 
 void *analyzer(void *);
 

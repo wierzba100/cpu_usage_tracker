@@ -23,7 +23,7 @@ typedef struct {
 typedef struct {
     CPU_Data CurrentCPUs_Data[MAX_NR_OF_PROCESSORS];
     CPU_Data PreviousCPUs_Data[MAX_NR_OF_PROCESSORS];
-    long usage[MAX_NR_OF_PROCESSORS];
+    double usage[MAX_NR_OF_PROCESSORS];
 }CPUs_Data;
 
 

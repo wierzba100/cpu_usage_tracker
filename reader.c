@@ -35,13 +35,12 @@ void *reader(void *CPUs_DataIn)
     CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
     while(1)
     {
-        for(int i=0;i<number_of_processors;i++) {
-            CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
-        }
         readCPUdata(&CPUs_Stats, number_of_processors);
         for(int i=0;i<number_of_processors;i++) {
+            CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
             CPUMy_Data->CurrentCPUs_Data[i] = CPUs_Stats[i];
         }
+        usleep(100000);
     }
 }
 
