@@ -19,11 +19,14 @@ void *watchdog(void*)
         for (int i = 0; i < NR_OF_THREADS; i++) {
             if (Threads_Table[i] == 0) {
                 printf("WATCHDOG ALERT: Zawiesił się %d watek\n", i);
+                Threads_Table[i] = -1;
                 term(0);
+            }else {
+                Threads_Table[i] = 0;
             }
-            Threads_Table[i] = 0;
         }
         pthread_mutex_unlock(&watchdog_mutex);
+        pthread_cond_signal(&watchdogCond);
     }
 
 }

@@ -2,11 +2,14 @@
 // Created by filip on 18.06.23.
 //
 
+#include <time.h>
 #include "logger.h"
 
 void *logger(void *CPUs_DataIn)
 {
     CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
+    time_t rawtime;
+    struct tm * timeinfo;
     FILE *fp;
     fp = fopen("../logger_data.log", "w");
     if (fp == NULL) {
@@ -18,13 +21,24 @@ void *logger(void *CPUs_DataIn)
         while(!done)
         {
             thread_is_working(3);
+            sleep(1);
+            time ( &rawtime );
+            timeinfo = localtime ( &rawtime );
+            fprintf (fp, "\nTime and date: %s", asctime (timeinfo) );
             fprintf (fp, "Processors Usage:\n");
             pthread_mutex_lock(&lock);
+            pthread_cond_wait(&analyzerCond, &lock);
             for(int i=0;i<number_of_processors;i++) {
                 fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->usage[i]);
             }
             pthread_mutex_unlock(&lock);
-            sleep(1);
+            fprintf (fp, "Watchdog Table:\n");
+            pthread_mutex_lock(&watchdog_mutex);
+            pthread_cond_wait(&watchdogCond, &watchdog_mutex);
+            for(int i=0;i<NR_OF_THREADS;i++) {
+                fprintf(fp, "Status watku %d: %d\n", i, Threads_Table[i]);
+            }
+            pthread_mutex_unlock(&watchdog_mutex);
         }
         fprintf (fp, "Logger Stop\n");
         fclose(fp);

@@ -10,8 +10,9 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t watchdog_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t readerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t analyzerCond = PTHREAD_COND_INITIALIZER;
+pthread_cond_t watchdogCond = PTHREAD_COND_INITIALIZER;
 
-bool Threads_Table[NR_OF_THREADS];
+int Threads_Table[NR_OF_THREADS];
 volatile sig_atomic_t done = 0;
 long number_of_processors;
 
@@ -41,6 +42,7 @@ int main()
     pthread_cond_destroy(&readerCond);
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&analyzerCond);
+    pthread_cond_destroy(&watchdogCond);
 
     printf("Program closed\n");
     return 0;

@@ -8,6 +8,11 @@
 #include "global_variables.h"
 
 extern pthread_mutex_t lock;
+extern pthread_mutex_t watchdog_mutex;
+extern pthread_cond_t analyzerCond;
+extern pthread_cond_t watchdogCond;
+
+extern int Threads_Table[NR_OF_THREADS];
 
 void *logger(void*);
 

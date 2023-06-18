@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <stdbool.h>
 #include <signal.h>
 #include <string.h>
 

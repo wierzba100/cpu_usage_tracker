@@ -10,7 +10,8 @@
 void *watchdog(void*);
 
 extern pthread_mutex_t watchdog_mutex;
+extern pthread_cond_t watchdogCond;
 
-extern bool Threads_Table[NR_OF_THREADS];
+extern int Threads_Table[NR_OF_THREADS];
 
 #endif //GPU_USAGE_TRACKER_WATCHDOG_H
