@@ -1,11 +1,37 @@
-cmake_minimum_required(VERSION 3.22)
-
-SET(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -Werror")
+cmake_minimum_required(VERSION 3.5)
 
 project(cpu_usage_tracker C)
-
-add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
-
 set(CMAKE_C_STANDARD 11)
 
-add_executable(cpu_usage_tracker main.c reader.h analyzer.c analyzer.h printer.c printer.h global_variables.h reader.c watchdog.c watchdog.h sigterm.c sigterm.h logger.c logger.h)
+if (DEFINED ENV{CC})
+    set(CMAKE_C_COMPILER $ENV{CC})
+else()
+    set(CMAKE_C_COMPILER gcc)
+endif()
+
+set(FILES
+        main.c
+        global_variables.h
+        reader.c
+        reader.h
+        analyzer.c
+        analyzer.h
+        printer.c
+        printer.h
+        watchdog.c
+        watchdog.h
+        sigterm.c
+        sigterm.h
+        logger.c
+        logger.h
+        )
+
+add_executable(cpu_usage_tracker ${FILES})
+
+if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+    target_compile_options(cpu_usage_tracker PRIVATE -Weverything -Werror)
+endif()
+
+if(CMAKE_C_COMPILER_ID MATCHES "GNU")
+    target_compile_options(cpu_usage_tracker PRIVATE -Wall -Wextra -Werror)
+endif()

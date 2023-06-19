@@ -39,6 +39,8 @@ void *logger(void *CPUs_DataIn)
                 fprintf(fp, "Status watku %d: %d\n", i, Threads_Table[i]);
             }
             pthread_mutex_unlock(&watchdog_mutex);
+            fprintf (fp, "Status of SIGTERM: %d\n", done);
+
         }
         fprintf (fp, "Logger Stop\n");
         fclose(fp);
