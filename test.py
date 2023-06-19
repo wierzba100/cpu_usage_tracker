@@ -4,7 +4,7 @@ import subprocess
 
 
 def sigterm_test():
-    cpu_usage_app = subprocess.Popen("./gpu_usage_tracker", stdout=subprocess.PIPE)
+    cpu_usage_app = subprocess.Popen("./cpu_usage_tracker", stdout=subprocess.PIPE)
 
     time.sleep(2)
 
