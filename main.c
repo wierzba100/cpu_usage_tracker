@@ -18,7 +18,7 @@ long number_of_processors;
 
 int main()
 {
-    CPUs_Data CPUs_Data;
+    CPUs_Data CPUs_Data={0};
     number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
 
     pthread_t thread0, thread1, thread2, thread3, thread4;
@@ -40,7 +40,6 @@ int main()
     pthread_mutex_destroy(&lock);
     pthread_mutex_destroy(&watchdog_mutex);
     pthread_cond_destroy(&readerCond);
-    pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&watchdogCond);
 
