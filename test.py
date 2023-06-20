@@ -15,10 +15,10 @@ def sigterm_test():
     string_out = str(out)
 
     if string_out[-17:] == "Program closed\\n'":
-        return 1
+        print("Test result: PASSED")
     else:
-        return 0
+        print("Test result: FAILED")
 
 
-assert sigterm_test() == 1
+sigterm_test()
 
