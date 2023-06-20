@@ -25,7 +25,7 @@ void *logger(void *CPUs_DataIn)
             time ( &rawtime );
             timeinfo = localtime ( &rawtime );
             fprintf (fp, "\nTime and date: %s", asctime (timeinfo) );
-            fprintf (fp, "Processors Usage:\n");
+            fprintf (fp, "Processor Usage:\n");
             pthread_mutex_lock(&lock);
             pthread_cond_wait(&analyzerCond, &lock);
             for(int i=0;i<number_of_processors;i++) {

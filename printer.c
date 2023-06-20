@@ -11,7 +11,7 @@ void *printer(void *CPUs_DataIn)
         pthread_mutex_lock(&lock);
         thread_is_working(2);
         pthread_cond_wait(&analyzerCond, &lock);
-        printf("Dane:\n");
+        printf("Processor usage:\n");
         for(int i=0;i<number_of_processors;i++) {
             printf("CPU %d: %f %% \n",i,CPUMy_Data->usage[i]);
         }
