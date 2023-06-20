@@ -2,8 +2,8 @@
 // Created by filip on 18.06.23.
 //
 
-#ifndef GPU_USAGE_TRACKER_LOGGER_H
-#define GPU_USAGE_TRACKER_LOGGER_H
+#ifndef CPU_USAGE_TRACKER_LOGGER_H
+#define CPU_USAGE_TRACKER_LOGGER_H
 
 #include "global_variables.h"
 
@@ -16,4 +16,4 @@ extern int Threads_Table[NR_OF_THREADS];
 
 void *logger(void*);
 
-#endif //GPU_USAGE_TRACKER_LOGGER_H
+#endif //CPU_USAGE_TRACKER_LOGGER_H

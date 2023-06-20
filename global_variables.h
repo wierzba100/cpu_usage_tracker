@@ -2,8 +2,8 @@
 // Created by filip on 18.06.23.
 //
 
-#ifndef GPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
-#define GPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
+#ifndef CPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
+#define CPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
 
 #include <stdio.h>
 #include <pthread.h>
@@ -42,4 +42,4 @@ extern volatile sig_atomic_t done;
 extern void term(int);
 
 
-#endif //GPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
+#endif //CPU_USAGE_TRACKER_GLOBAL_VARIABLES_H

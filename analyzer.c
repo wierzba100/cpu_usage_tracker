@@ -4,9 +4,9 @@
 
 #include "analyzer.h"
 
-double proc_usage(CPU_Data Current_Data, CPU_Data Previous_Data)
+double processor_usage(CPU_Data Current_Data, CPU_Data Previous_Data)
 {
-    unsigned long prevTotal = Previous_Data.user + Previous_Data.nice +
+    unsigned long previousTotal = Previous_Data.user + Previous_Data.nice +
                               Previous_Data.system + Previous_Data.idle +
                               Previous_Data.iowait + Previous_Data.irq +
                               Previous_Data.softirq + Previous_Data.steal;
@@ -16,7 +16,7 @@ double proc_usage(CPU_Data Current_Data, CPU_Data Previous_Data)
                                  Current_Data.iowait + Current_Data.irq +
                                  Current_Data.softirq + Current_Data.steal;
 
-    unsigned long total = currentTotal - prevTotal;
+    unsigned long total = currentTotal - previousTotal;
     unsigned long idle = Current_Data.idle - Previous_Data.idle;
 
     double usage = (double)(total - idle) / (double)total * 100;
@@ -34,7 +34,7 @@ void *analyzer(void *CPUs_DataIn)
         thread_is_working(1);
         pthread_cond_wait(&readerCond, &lock);
         for(int i=0;i<number_of_processors;i++) {
-            CPUMy_Data->usage[i] = proc_usage(CPUMy_Data->CurrentCPUs_Data[i], CPUMy_Data->PreviousCPUs_Data[i]);
+            CPUMy_Data->usage[i] = processor_usage(CPUMy_Data->CurrentCPUs_Data[i], CPUMy_Data->PreviousCPUs_Data[i]);
         }
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&analyzerCond);
