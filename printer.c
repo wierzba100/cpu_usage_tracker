@@ -5,7 +5,7 @@
 
 void *printer(void *CPUs_DataIn)
 {
-    CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
+    ThreadMetaData* CPUMy_Data = (ThreadMetaData *) CPUs_DataIn;
     while(!done)
     {
         pthread_mutex_lock(&lock);

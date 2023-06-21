@@ -7,7 +7,7 @@
 
 void *logger(void *CPUs_DataIn)
 {
-    CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
+    ThreadMetaData* CPUMy_Data = (ThreadMetaData *) CPUs_DataIn;
     time_t rawtime;
     struct tm * timeinfo;
     FILE *fp;

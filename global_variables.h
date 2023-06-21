@@ -10,10 +10,11 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
+#include <stdlib.h>
 
-#define MAX_NR_OF_PROCESSORS 12
 #define WATCHDOG_TIMEOUT 2
 #define NR_OF_THREADS 4
+#define BUFFER_SIZE 8
 
 typedef struct{
     unsigned long user;
@@ -28,11 +29,11 @@ typedef struct{
     unsigned long guest_nice;
 } CPU_Data;
 
+
 typedef struct{
-    CPU_Data CurrentCPUs_Data[MAX_NR_OF_PROCESSORS];
-    CPU_Data PreviousCPUs_Data[MAX_NR_OF_PROCESSORS];
-    double usage[MAX_NR_OF_PROCESSORS];
-}CPUs_Data;
+    CPU_Data* ptrCPUData;
+    double* usage;
+}ThreadMetaData;
 
 extern long number_of_processors;
 

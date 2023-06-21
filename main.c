@@ -18,18 +18,26 @@ long number_of_processors;
 
 int main()
 {
-    CPUs_Data CPUs_Data={0};
     number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
+
+    ThreadMetaData CPUs_MyDataStruct[BUFFER_SIZE]={0};
+    const ThreadMetaData* ptr_ThreadMetaData = CPUs_MyDataStruct;
+
+    for(int i=0;i<BUFFER_SIZE;i++)
+    {
+        CPUs_MyDataStruct[i].ptrCPUData = malloc(number_of_processors * sizeof(CPU_Data));
+        CPUs_MyDataStruct[i].usage = malloc(number_of_processors * sizeof(double));
+    }
 
     pthread_t thread0, thread1, thread2, thread3, thread4;
 
     SIGTERM_init();
 
-    pthread_create(&thread0, NULL, reader, (void*) &CPUs_Data);
-    pthread_create(&thread1, NULL, analyzer, (void*) &CPUs_Data);
-    pthread_create(&thread2, NULL, printer, (void*) &CPUs_Data);
+    pthread_create(&thread0, NULL, reader, (void*) ptr_ThreadMetaData);
+    pthread_create(&thread1, NULL, analyzer, (void*) ptr_ThreadMetaData);
+    pthread_create(&thread2, NULL, printer, (void*) ptr_ThreadMetaData);
     pthread_create(&thread3, NULL, watchdog, NULL);
-    pthread_create(&thread4, NULL, logger, (void*) &CPUs_Data);
+    pthread_create(&thread4, NULL, logger, (void*) ptr_ThreadMetaData);
 
     pthread_join(thread0, NULL);
     pthread_join(thread1, NULL);

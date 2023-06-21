@@ -7,7 +7,7 @@
 
 #include "global_variables.h"
 
-double processor_usage(CPU_Data, CPU_Data);
+double processor_usage(CPU_Data*, CPU_Data*);
 
 void *analyzer(void *);
 

@@ -29,18 +29,19 @@ void *readCPUdata(CPU_Data *CPUs_Data, long nr_of_proc)
 
 void *reader(void *CPUs_DataIn)
 {
-    CPUs_Data* CPUMy_Data = (CPUs_Data *) CPUs_DataIn;
-    CPU_Data CPUs_Stats[MAX_NR_OF_PROCESSORS];
+    ThreadMetaData* CPUMy_Data = (ThreadMetaData *) CPUs_DataIn;
     while(!done)
     {
         usleep(500000);
         pthread_mutex_lock(&lock);
         thread_is_working(0);
-        readCPUdata(CPUs_Stats, number_of_processors);
-        for(int i=0;i<number_of_processors;i++) {
-            CPUMy_Data->PreviousCPUs_Data[i] = CPUMy_Data->CurrentCPUs_Data[i];
-            CPUMy_Data->CurrentCPUs_Data[i] = CPUs_Stats[i];
+        for(int i=0;i<BUFFER_SIZE-1;i++) {
+            for(int j=0;j<number_of_processors;j++)
+            {
+                memcpy(CPUMy_Data[i+1].ptrCPUData, CPUMy_Data[i].ptrCPUData, number_of_processors * sizeof(CPU_Data));
+            }
         }
+        readCPUdata(CPUMy_Data->ptrCPUData, number_of_processors);
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&readerCond);
     }
