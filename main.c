@@ -25,8 +25,8 @@ int main()
 
     for(int i=0;i<BUFFER_SIZE;i++)
     {
-        CPUs_MyDataStruct[i].ptrCPUData = malloc(number_of_processors * sizeof(CPU_Data));
-        CPUs_MyDataStruct[i].usage = malloc(number_of_processors * sizeof(double));
+        CPUs_MyDataStruct[i].ptrCPUData = calloc(number_of_processors, sizeof(CPU_Data));
+        CPUs_MyDataStruct[i].usage = calloc(number_of_processors, sizeof(double));
     }
 
     pthread_t thread0, thread1, thread2, thread3, thread4;
