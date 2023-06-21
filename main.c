@@ -50,6 +50,12 @@ int main()
     pthread_cond_destroy(&readerCond);
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&watchdogCond);
+    
+    for(int i=0;i<BUFFER_SIZE;i++)
+    {
+        free(CPUs_MyDataStruct[i].ptrCPUData);
+        free(CPUs_MyDataStruct[i].usage);
+    }
 
     printf("Program closed\n");
     return 0;
