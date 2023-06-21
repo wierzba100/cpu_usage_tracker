@@ -28,19 +28,28 @@ void *terminate_after_N_sec(void* SecondsIn)
 
 int main()
 {
-    CPUs_Data CPUs_Data={0};
     number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
+
+    ThreadMetaData CPUs_MyDataStruct[BUFFER_SIZE]={0};
+    const ThreadMetaData* ptr_ThreadMetaData = CPUs_MyDataStruct;
+
+    for(int i=0;i<BUFFER_SIZE;i++)
+    {
+        CPUs_MyDataStruct[i].ptrCPUData = malloc(number_of_processors * sizeof(CPU_Data));
+        CPUs_MyDataStruct[i].usage = malloc(number_of_processors * sizeof(double));
+    }
+
     int nr_of_seconds = SECONDS_TO_RUN;
 
     pthread_t thread0, thread1, thread2, thread3, thread4, thread5;
 
     SIGTERM_init();
 
-    pthread_create(&thread0, NULL, reader, (void*) &CPUs_Data);
-    pthread_create(&thread1, NULL, analyzer, (void*) &CPUs_Data);
-    pthread_create(&thread2, NULL, printer, (void*) &CPUs_Data);
+    pthread_create(&thread0, NULL, reader, (void*) ptr_ThreadMetaData);
+    pthread_create(&thread1, NULL, analyzer, (void*) ptr_ThreadMetaData);
+    pthread_create(&thread2, NULL, printer, (void*) ptr_ThreadMetaData);
     pthread_create(&thread3, NULL, watchdog, NULL);
-    pthread_create(&thread4, NULL, logger, (void*) &CPUs_Data);
+    pthread_create(&thread4, NULL, logger, (void*) ptr_ThreadMetaData);
     pthread_create(&thread5, NULL, terminate_after_N_sec, (void*) &nr_of_seconds);
 
     pthread_join(thread0, NULL);
@@ -55,6 +64,12 @@ int main()
     pthread_cond_destroy(&readerCond);
     pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&watchdogCond);
+
+    for(int i=0;i<BUFFER_SIZE;i++)
+    {
+        free(CPUs_MyDataStruct[i].ptrCPUData);
+        free(CPUs_MyDataStruct[i].usage);
+    }
 
     printf("Program closed\n");
     return 0;
