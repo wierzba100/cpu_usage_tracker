@@ -12,9 +12,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define WATCHDOG_TIMEOUT 2
+#define WATCHDOG_TIMEOUT 100
 #define NR_OF_THREADS 4
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 10
 
 typedef struct{
     unsigned long user;
@@ -29,11 +29,10 @@ typedef struct{
     unsigned long guest_nice;
 } CPU_Data;
 
-
 typedef struct{
-    CPU_Data* ptrCPUData;
-    double* usage;
-}ThreadMetaData;
+    CPU_Data** const ReaderData;
+    double** const PrinterData;
+}AnalyzerData;
 
 extern long number_of_processors;
 
@@ -42,5 +41,9 @@ extern void thread_is_working(int thread_nr);
 extern volatile sig_atomic_t done;
 extern void term(int);
 
+/*extern int readerQueueRear;
+extern int readerQueueFront;
+extern int usageQueueRear;
+extern int usageQueueFront;*/
 
 #endif //CPU_USAGE_TRACKER_GLOBAL_VARIABLES_H
