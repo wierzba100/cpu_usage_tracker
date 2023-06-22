@@ -3,9 +3,9 @@
 //
 #include "printer.h"
 
-void *printer(void *CPU_UsageIn)
+void *printer(void *CPUs_DataIn)
 {
-    double** CPUMy_Data = (double **) CPU_UsageIn;
+    AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
     while(!done)
     {
         pthread_mutex_lock(&lock);
@@ -13,7 +13,7 @@ void *printer(void *CPU_UsageIn)
         pthread_cond_wait(&analyzerCond, &lock);
         printf("Processor usage:\n");
         for(int i=0;i<number_of_processors;i++) {
-            printf("CPU %d: %f %% \n",i,CPUMy_Data[0][i]);
+            printf("CPU %d: %f %% \n",i,CPUMy_Data->PrinterData[0][i]);
         }
         pthread_mutex_unlock(&lock);
         sleep(1);

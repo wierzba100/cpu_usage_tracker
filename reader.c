@@ -29,7 +29,7 @@ void *readCPUdata(CPU_Data* CPUs_Data)
 
 void *reader(void *CPUs_DataIn)
 {
-    CPU_Data** CPUMy_Data = (CPU_Data **) CPUs_DataIn;
+    AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
     while(!done)
     {
         usleep(500000);
@@ -37,9 +37,9 @@ void *reader(void *CPUs_DataIn)
         thread_is_working(0);
         for(int i=0;i<number_of_processors;i++)
         {
-            memcpy(CPUMy_Data[i+1], CPUMy_Data[0], number_of_processors * sizeof(CPU_Data));
+            memcpy(CPUMy_Data->ReaderData[i+1], CPUMy_Data->ReaderData[i], number_of_processors * sizeof(CPU_Data));
         }
-        readCPUdata(CPUMy_Data[0]);
+        readCPUdata(CPUMy_Data->ReaderData[0]);
         pthread_mutex_unlock(&lock);
         pthread_cond_signal(&readerCond);
     }

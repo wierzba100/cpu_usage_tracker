@@ -30,7 +30,6 @@ int main()
     usageQueueFront = -1;*/
 
     CPU_Data* ReaderData[BUFFER_SIZE];
-
     double* PrinterData[BUFFER_SIZE];
 
     AnalyzerData MyAnalyzerData = {ReaderData, PrinterData};
@@ -46,11 +45,11 @@ int main()
 
     SIGTERM_init();
 
-    pthread_create(&thread0, NULL, reader, (void*) ReaderData);
+    pthread_create(&thread0, NULL, reader, (void*) ptrMyAnalyzerData);
     pthread_create(&thread1, NULL, analyzer, (void*) ptrMyAnalyzerData);
-    pthread_create(&thread2, NULL, printer, (void*) PrinterData);
+    pthread_create(&thread2, NULL, printer, (void*) ptrMyAnalyzerData);
     pthread_create(&thread3, NULL, watchdog, NULL);
-    pthread_create(&thread4, NULL, logger, (void*) PrinterData);
+    pthread_create(&thread4, NULL, logger, (void*) ptrMyAnalyzerData);
 
     pthread_join(thread0, NULL);
     pthread_join(thread1, NULL);

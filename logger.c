@@ -5,9 +5,9 @@
 #include <time.h>
 #include "logger.h"
 
-void *logger(void *CPU_UsageIn)
+void *logger(void *CPUs_DataIn)
 {
-    double* CPUMy_Data = (double *) CPU_UsageIn;
+    AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
     time_t rawtime;
     struct tm * timeinfo;
     FILE *fp;
@@ -29,7 +29,7 @@ void *logger(void *CPU_UsageIn)
             pthread_mutex_lock(&lock);
             pthread_cond_wait(&analyzerCond, &lock);
             for(int i=0;i<number_of_processors;i++) {
-                fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data[i]);
+                fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->PrinterData[0][i]);
             }
             pthread_mutex_unlock(&lock);
             fprintf (fp, "Watchdog Table:\n");

@@ -32,6 +32,7 @@ typedef struct{
 typedef struct{
     CPU_Data** const ReaderData;
     double** const PrinterData;
+
 }AnalyzerData;
 
 extern long number_of_processors;
