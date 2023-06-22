@@ -45,7 +45,7 @@ set(TEST
         logger.h
         )
 
-add_executable(Valgrind_test ${TEST})
+add_executable(valgrind_test ${TEST})
 
 
 if(CMAKE_C_COMPILER_ID MATCHES "Clang")
