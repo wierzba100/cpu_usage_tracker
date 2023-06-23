@@ -12,5 +12,8 @@ void *printer(void*);
 extern pthread_mutex_t lock;
 extern pthread_cond_t analyzerCond;
 
+extern sem_t emptyUsageBuffer;
+extern sem_t fullUsageBuffer;
+
 
 #endif //CPU_USAGE_TRACKER_PRINTER_H

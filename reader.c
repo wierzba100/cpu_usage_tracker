@@ -30,18 +30,19 @@ void *readCPUdata(CPU_Data* CPUs_Data)
 void *reader(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
+    unsigned int bufferreaderindex=0;
     while(!done)
     {
         usleep(500000);
-        pthread_mutex_lock(&lock);
         thread_is_working(0);
-        for(int i=0;i<number_of_processors;i++)
-        {
-            memcpy(CPUMy_Data->ReaderData[i+1], CPUMy_Data->ReaderData[i], number_of_processors * sizeof(CPU_Data));
-        }
-        readCPUdata(CPUMy_Data->ReaderData[0]);
+        sem_wait(&emptyReaderBuffer);
+        pthread_mutex_lock(&lock);
+        readCPUdata(CPUMy_Data->ReaderData[bufferreaderindex % BUFFER_SIZE]);
         pthread_mutex_unlock(&lock);
+        bufferreaderindex++;
+        sem_post(&fullReaderBuffer);
         pthread_cond_signal(&readerCond);
+        printf("reader\n");
     }
     return NULL;
 }

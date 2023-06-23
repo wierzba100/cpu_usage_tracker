@@ -11,10 +11,11 @@
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include <semaphore.h>
 
-#define WATCHDOG_TIMEOUT 100
+#define WATCHDOG_TIMEOUT 2
 #define NR_OF_THREADS 4
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 5
 
 typedef struct{
     unsigned long user;
@@ -32,7 +33,6 @@ typedef struct{
 typedef struct{
     CPU_Data** const ReaderData;
     double** const PrinterData;
-
 }AnalyzerData;
 
 extern long number_of_processors;
@@ -42,9 +42,5 @@ extern void thread_is_working(int thread_nr);
 extern volatile sig_atomic_t done;
 extern void term(int);
 
-/*extern int readerQueueRear;
-extern int readerQueueFront;
-extern int usageQueueRear;
-extern int usageQueueFront;*/
 
 #endif //CPU_USAGE_TRACKER_GLOBAL_VARIABLES_H

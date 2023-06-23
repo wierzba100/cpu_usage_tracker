@@ -11,6 +11,10 @@ void *readCPUdata(CPU_Data*);
 void *reader(void*);
 
 extern pthread_mutex_t lock;
+
 extern pthread_cond_t readerCond;
+
+extern sem_t emptyReaderBuffer;
+extern sem_t fullReaderBuffer;
 
 #endif //CPU_USAGE_TRACKER_READER_H

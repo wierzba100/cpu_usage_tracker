@@ -8,6 +8,10 @@
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t watchdog_mutex = PTHREAD_MUTEX_INITIALIZER;
+sem_t emptyReaderBuffer;
+sem_t fullReaderBuffer;
+sem_t emptyUsageBuffer;
+sem_t fullUsageBuffer;
 pthread_cond_t readerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t analyzerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t watchdogCond = PTHREAD_COND_INITIALIZER;
@@ -15,19 +19,11 @@ pthread_cond_t watchdogCond = PTHREAD_COND_INITIALIZER;
 int Threads_Table[NR_OF_THREADS];
 volatile sig_atomic_t done = 0;
 long number_of_processors;
-/*int readerQueueRear;
-int readerQueueFront;
-int usageQueueRear;
-int usageQueueFront;*/
+
 
 int main()
 {
     number_of_processors = sysconf(_SC_NPROCESSORS_ONLN);
-
-    /*readerQueueRear = -1;
-    readerQueueFront = -1;
-    usageQueueRear = -1;
-    usageQueueFront = -1;*/
 
     CPU_Data* ReaderData[BUFFER_SIZE];
     double* PrinterData[BUFFER_SIZE];
@@ -40,6 +36,11 @@ int main()
         ReaderData[i] = calloc(number_of_processors, sizeof(CPU_Data));
         PrinterData[i] = calloc(number_of_processors, sizeof(double));
     }
+
+    sem_init(&emptyReaderBuffer, 0, BUFFER_SIZE);
+    sem_init(&fullReaderBuffer, 0, 0);
+    sem_init(&emptyUsageBuffer, 0, BUFFER_SIZE);
+    sem_init(&fullUsageBuffer, 0, 0);
 
     pthread_t thread0, thread1, thread2, thread3, thread4;
 
@@ -59,10 +60,15 @@ int main()
 
     pthread_mutex_destroy(&lock);
     pthread_mutex_destroy(&watchdog_mutex);
-    pthread_cond_destroy(&readerCond);
-    pthread_cond_destroy(&analyzerCond);
     pthread_cond_destroy(&watchdogCond);
-    
+    pthread_cond_destroy(&analyzerCond);
+    pthread_cond_destroy(&readerCond);
+
+    sem_destroy(&emptyReaderBuffer);
+    sem_destroy(&fullReaderBuffer);
+    sem_destroy(&emptyUsageBuffer);
+    sem_destroy(&fullUsageBuffer);
+
     for(int i=0;i<BUFFER_SIZE;i++)
     {
         free(ReaderData[i]);

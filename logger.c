@@ -27,7 +27,7 @@ void *logger(void *CPUs_DataIn)
             fprintf (fp, "\nTime and date: %s", asctime (timeinfo) );
             fprintf (fp, "Processor Usage:\n");
             pthread_mutex_lock(&lock);
-            pthread_cond_wait(&analyzerCond, &lock);
+            //pthread_cond_wait(&analyzerCond, &lock);
             for(int i=0;i<number_of_processors;i++) {
                 fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->PrinterData[0][i]);
             }
