@@ -1,7 +1,7 @@
 #include "reader.h"
 #include <string.h>
 
-void *readCPUdata(CPU_Data* CPUs_Data)
+void *readCPUData(CPU_Data* CPUs_Data)
 {
     FILE *fp;
     fp = fopen("/proc/stat", "r");
@@ -30,19 +30,18 @@ void *readCPUdata(CPU_Data* CPUs_Data)
 void *reader(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
-    unsigned int bufferreaderindex=0;
+    unsigned int bufferReaderIndex=0;
     while(!done)
     {
         usleep(500000);
         thread_is_working(0);
         sem_wait(&emptyReaderBuffer);
         pthread_mutex_lock(&lock);
-        readCPUdata(CPUMy_Data->ReaderData[bufferreaderindex % BUFFER_SIZE]);
+        readCPUData(CPUMy_Data->ReaderData[bufferReaderIndex % BUFFER_SIZE]);
         pthread_mutex_unlock(&lock);
-        bufferreaderindex++;
+        bufferReaderIndex++;
         sem_post(&fullReaderBuffer);
         pthread_cond_signal(&readerCond);
-        printf("reader\n");
     }
     return NULL;
 }

@@ -10,7 +10,6 @@ void *printer(void *CPUs_DataIn)
     while(!done)
     {
         thread_is_working(2);
-        sem_wait(&emptyUsageBuffer);
         pthread_mutex_lock(&lock);
         pthread_cond_wait(&analyzerCond, &lock);
         printf("Processor usage:\n");
@@ -19,8 +18,6 @@ void *printer(void *CPUs_DataIn)
         }
         pthread_mutex_unlock(&lock);
         bufferUsageindex++;
-        sem_post(&fullUsageBuffer);
-        printf("printer\n");
         sleep(1);
     }
     return NULL;

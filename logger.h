@@ -12,6 +12,9 @@ extern pthread_mutex_t watchdog_mutex;
 extern pthread_cond_t analyzerCond;
 extern pthread_cond_t watchdogCond;
 
+extern sem_t emptyReaderBuffer;
+extern sem_t fullReaderBuffer;
+
 extern int Threads_Table[NR_OF_THREADS];
 
 void *logger(void*);

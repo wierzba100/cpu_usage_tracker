@@ -15,8 +15,6 @@ extern pthread_mutex_t lock;
 
 extern sem_t emptyReaderBuffer;
 extern sem_t fullReaderBuffer;
-extern sem_t emptyUsageBuffer;
-extern sem_t fullUsageBuffer;
 
 extern pthread_cond_t readerCond;
 extern pthread_cond_t analyzerCond;

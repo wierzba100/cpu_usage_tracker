@@ -7,7 +7,7 @@
 
 #include "global_variables.h"
 
-void *readCPUdata(CPU_Data*);
+void *readCPUData(CPU_Data*);
 void *reader(void*);
 
 extern pthread_mutex_t lock;

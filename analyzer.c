@@ -30,22 +30,19 @@ void processor_usage(CPU_Data* Current_Data, CPU_Data* Previous_Data, double* us
 void *analyzer(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
-    unsigned int bufferReaderindex=0;
+    unsigned int bufferReaderIndex=0;
     while(!done)
     {
         thread_is_working(1);
         sem_wait(&fullReaderBuffer);
-        sem_wait(&emptyUsageBuffer);
         pthread_mutex_lock(&lock);
         pthread_cond_wait(&readerCond, &lock);
-        processor_usage(CPUMy_Data->ReaderData[(bufferReaderindex+1) % BUFFER_SIZE], CPUMy_Data->ReaderData[bufferReaderindex % BUFFER_SIZE],
-                        CPUMy_Data->PrinterData[bufferReaderindex % BUFFER_SIZE]);
+        processor_usage(CPUMy_Data->ReaderData[(bufferReaderIndex+1) % BUFFER_SIZE], CPUMy_Data->ReaderData[bufferReaderIndex % BUFFER_SIZE],
+                        CPUMy_Data->PrinterData[bufferReaderIndex % BUFFER_SIZE]);
         pthread_mutex_unlock(&lock);
-        bufferReaderindex++;
-        sem_post(&fullUsageBuffer);
         sem_post(&emptyReaderBuffer);
+        bufferReaderIndex++;
         pthread_cond_signal(&analyzerCond);
-        printf("analyzer\n");
     }
     return NULL;
 }

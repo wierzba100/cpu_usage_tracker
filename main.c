@@ -10,8 +10,6 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t watchdog_mutex = PTHREAD_MUTEX_INITIALIZER;
 sem_t emptyReaderBuffer;
 sem_t fullReaderBuffer;
-sem_t emptyUsageBuffer;
-sem_t fullUsageBuffer;
 pthread_cond_t readerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t analyzerCond = PTHREAD_COND_INITIALIZER;
 pthread_cond_t watchdogCond = PTHREAD_COND_INITIALIZER;
@@ -39,8 +37,6 @@ int main()
 
     sem_init(&emptyReaderBuffer, 0, BUFFER_SIZE);
     sem_init(&fullReaderBuffer, 0, 0);
-    sem_init(&emptyUsageBuffer, 0, BUFFER_SIZE);
-    sem_init(&fullUsageBuffer, 0, 0);
 
     pthread_t thread0, thread1, thread2, thread3, thread4;
 
@@ -66,8 +62,6 @@ int main()
 
     sem_destroy(&emptyReaderBuffer);
     sem_destroy(&fullReaderBuffer);
-    sem_destroy(&emptyUsageBuffer);
-    sem_destroy(&fullUsageBuffer);
 
     for(int i=0;i<BUFFER_SIZE;i++)
     {

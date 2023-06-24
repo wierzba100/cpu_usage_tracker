@@ -8,6 +8,8 @@
 void *logger(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
+    int value;
+    unsigned int bufferUsageIndex=0;
     time_t rawtime;
     struct tm * timeinfo;
     FILE *fp;
@@ -27,11 +29,16 @@ void *logger(void *CPUs_DataIn)
             fprintf (fp, "\nTime and date: %s", asctime (timeinfo) );
             fprintf (fp, "Processor Usage:\n");
             pthread_mutex_lock(&lock);
-            //pthread_cond_wait(&analyzerCond, &lock);
+            pthread_cond_wait(&analyzerCond, &lock);
             for(int i=0;i<number_of_processors;i++) {
-                fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->PrinterData[0][i]);
+                fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->PrinterData[bufferUsageIndex][i]);
             }
+            sem_getvalue(&emptyReaderBuffer, &value);
+            fprintf(fp, "emptyReaderBuffer: %d\n", value);
+            sem_getvalue(&fullReaderBuffer, &value);
+            fprintf(fp, "fullReaderBuffer: %d\n", value);
             pthread_mutex_unlock(&lock);
+            bufferUsageIndex++;
             fprintf (fp, "Watchdog Table:\n");
             pthread_mutex_lock(&watchdog_mutex);
             pthread_cond_wait(&watchdogCond, &watchdog_mutex);
