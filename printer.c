@@ -6,7 +6,7 @@
 void *printer(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
-    unsigned int bufferUsageindex=0;
+    unsigned int bufferUsageIndex=0;
     while(!done)
     {
         thread_is_working(2);
@@ -14,10 +14,10 @@ void *printer(void *CPUs_DataIn)
         pthread_cond_wait(&analyzerCond, &lock);
         printf("Processor usage:\n");
         for(int i=0;i<number_of_processors;i++) {
-            printf("CPU %d: %f %% \n",i,CPUMy_Data->PrinterData[bufferUsageindex % BUFFER_SIZE][i]);
+            printf("CPU %d: %f %% \n",i,CPUMy_Data->PrinterData[bufferUsageIndex % BUFFER_SIZE][i]);
         }
         pthread_mutex_unlock(&lock);
-        bufferUsageindex++;
+        bufferUsageIndex++;
         sleep(1);
     }
     return NULL;
