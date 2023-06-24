@@ -21,7 +21,7 @@ void *watchdog(__attribute__((unused)) void* paramIn)
                 printf("WATCHDOG ALERT: Zawiesił się %d watek\n", i);
                 printf("Closing program... WATCHDOG ERROR\n");
                 Threads_Table[i] = -1;
-                exit(-1);
+                term(1);
             }else {
                 Threads_Table[i] = 0;
             }
