@@ -8,7 +8,7 @@
 void *logger(void *CPUs_DataIn)
 {
     AnalyzerData* CPUMy_Data = (AnalyzerData *) CPUs_DataIn;
-    int value;
+    int valueToPrint;
     unsigned int bufferUsageIndex=0;
     time_t rawtime;
     struct tm * timeinfo;
@@ -33,10 +33,10 @@ void *logger(void *CPUs_DataIn)
             for(int i=0;i<number_of_processors;i++) {
                 fprintf (fp, "CPU_NR: %d Usage: %f %%\n",i, CPUMy_Data->PrinterData[bufferUsageIndex % BUFFER_SIZE][i]);
             }
-            sem_getvalue(&emptyReaderBuffer, &value);
-            fprintf(fp, "emptyReaderBuffer: %d\n", value);
-            sem_getvalue(&fullReaderBuffer, &value);
-            fprintf(fp, "fullReaderBuffer: %d\n", value);
+            sem_getvalue(&emptyReaderBuffer, &valueToPrint);
+            fprintf(fp, "emptyReaderBuffer: %d\n", valueToPrint);
+            sem_getvalue(&fullReaderBuffer, &valueToPrint);
+            fprintf(fp, "fullReaderBuffer: %d\n", valueToPrint);
             pthread_mutex_unlock(&lock);
             bufferUsageIndex++;
             fprintf (fp, "Watchdog Table:\n");

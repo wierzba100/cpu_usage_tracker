@@ -11,38 +11,24 @@ endif()
 
 set(FILES
         main.c
-        global_variables.h
         reader.c
-        reader.h
         analyzer.c
-        analyzer.h
         printer.c
-        printer.h
         watchdog.c
-        watchdog.h
         sigterm.c
-        sigterm.h
         logger.c
-        logger.h
         )
 
 add_executable(cpu_usage_tracker ${FILES})
 
 set(TEST
         main_valgrind.c
-        global_variables.h
         reader.c
-        reader.h
         analyzer.c
-        analyzer.h
         printer.c
-        printer.h
         watchdog.c
-        watchdog.h
         sigterm.c
-        sigterm.h
         logger.c
-        logger.h
         )
 
 add_executable(valgrind_test ${TEST})
