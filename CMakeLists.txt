@@ -10,25 +10,25 @@ else()
 endif()
 
 set(FILES
-        main.c
-        reader.c
-        analyzer.c
-        printer.c
-        watchdog.c
-        sigterm.c
-        logger.c
+        src/main.c
+        src/reader.c
+        src/analyzer.c
+        src/printer.c
+        src/watchdog.c
+        src/sigterm.c
+        src/logger.c
         )
 
 add_executable(cpu_usage_tracker ${FILES})
 
 set(TEST
-        main_valgrind.c
-        reader.c
-        analyzer.c
-        printer.c
-        watchdog.c
-        sigterm.c
-        logger.c
+        src/main_valgrind.c
+        src/reader.c
+        src/analyzer.c
+        src/printer.c
+        src/watchdog.c
+        src/sigterm.c
+        src/logger.c
         )
 
 add_executable(valgrind_test ${TEST})

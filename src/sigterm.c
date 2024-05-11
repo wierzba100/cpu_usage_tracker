@@ -1,8 +1,4 @@
-//
-// Created by filip on 18.06.23.
-//
-
-#include "sigterm.h"
+#include "../hdr/sigterm.h"
 
 void term(__attribute__((unused)) int signum)
 {

@@ -1,8 +1,4 @@
-//
-// Created by filip on 18.06.23.
-//
-
-#include "analyzer.h"
+#include "../hdr/analyzer.h"
 
 void processor_usage(CPU_Data* Current_Data, CPU_Data* Previous_Data, double* usageIn)
 {

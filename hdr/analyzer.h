@@ -1,7 +1,3 @@
-//
-// Created by filip on 18.06.23.
-//
-
 #ifndef CPU_USAGE_TRACKER_ANALYZER_H
 #define CPU_USAGE_TRACKER_ANALYZER_H
 

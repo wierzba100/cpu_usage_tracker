@@ -1,10 +1,10 @@
-#include "global_variables.h"
-#include "reader.h"
-#include "analyzer.h"
-#include "printer.h"
-#include "watchdog.h"
-#include "sigterm.h"
-#include "logger.h"
+#include "../hdr/global_variables.h"
+#include "../hdr/reader.h"
+#include "../hdr/analyzer.h"
+#include "../hdr/printer.h"
+#include "../hdr/watchdog.h"
+#include "../hdr/sigterm.h"
+#include "../hdr/logger.h"
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t watchdog_mutex = PTHREAD_MUTEX_INITIALIZER;

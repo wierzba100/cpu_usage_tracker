@@ -1,8 +1,4 @@
-//
-// Created by filip on 18.06.23.
-//
-
-#include "watchdog.h"
+#include "../hdr/watchdog.h"
 
 void thread_is_working(int thread_nr)
 {

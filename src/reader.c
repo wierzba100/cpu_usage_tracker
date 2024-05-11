@@ -1,4 +1,4 @@
-#include "reader.h"
+#include "../hdr/reader.h"
 #include <string.h>
 
 void *readCPUData(CPU_Data* CPUs_Data)

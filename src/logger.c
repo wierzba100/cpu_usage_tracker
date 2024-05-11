@@ -1,9 +1,5 @@
-//
-// Created by filip on 18.06.23.
-//
-
 #include <time.h>
-#include "logger.h"
+#include "../hdr/logger.h"
 
 void *logger(void *CPUs_DataIn)
 {

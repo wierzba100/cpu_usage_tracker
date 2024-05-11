@@ -1,7 +1,4 @@
-//
-// Created by filip on 18.06.23.
-//
-#include "printer.h"
+#include "../hdr/printer.h"
 
 void *printer(void *CPUs_DataIn)
 {
