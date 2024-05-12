@@ -4,6 +4,5 @@ Makefile
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
-cpu_usage_tracker
 valgrind_test
 
